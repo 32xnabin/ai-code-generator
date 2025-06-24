@@ -1,0 +1,264 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  line-height: 1.6;
+  color: #333;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width:100%;
+  margin: auto;
+  height: 100vh;
+  border: 1px solid #e1e4e8;
+}
+
+.settings-panel {
+  padding: 1rem;
+  background: #f6f8fa;
+  border-bottom: 1px solid #e1e4e8;
+}
+
+.settings-panel h2 {
+  margin-bottom: 1rem;
+  color: #24292e;
+}
+
+.settings-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+  align-items: center;
+}
+
+.settings-row label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.settings-row input {
+  padding: 0.5rem;
+  border: 1px solid #d1d5da;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.settings-row button {
+  padding: 0.5rem 1rem;
+  background: #2ea44f;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.settings-row button:hover {
+  background: #2c974b;
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.messages {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  background: white;
+}
+
+.welcome-message {
+  color: #586069;
+  padding: 1rem;
+  text-align: center;
+}
+
+.welcome-message p {
+  margin-bottom: 1rem;
+}
+
+.welcome-message ol {
+  text-align: left;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.welcome-message code {
+  background: #f6f8fa;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-family: monospace;
+}
+
+.message {
+  margin-bottom: 1rem;
+  max-width: 80%;
+}
+
+.message.user {
+  margin-left: auto;
+}
+
+.message.assistant {
+  margin-right: auto;
+}
+
+.message-content {
+  padding: 0.75rem 1rem;
+  border-radius: 18px;
+  line-height: 1.5;
+}
+
+.user .message-content {
+  background: #2188ff;
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.assistant .message-content {
+  background: #f6f8fa;
+  color: #24292e;
+  border-bottom-left-radius: 4px;
+}
+
+.typing-indicator {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.typing-indicator span {
+  opacity: 0;
+  animation: blink 1.4s infinite;
+}
+
+.typing-indicator span:nth-child(1) {
+  animation-delay: 0s;
+}
+.typing-indicator span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes blink {
+  0% { opacity: 0.2; }
+  50% { opacity: 1; }
+  100% { opacity: 0.2; }
+}
+
+.input-area {
+  display: flex;
+  padding: 1rem;
+  border-top: 1px solid #e1e4e8;
+  background: #f6f8fa;
+}
+
+.input-area input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid #d1d5da;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.input-area button {
+  margin-left: 0.5rem;
+  padding: 0 1.5rem;
+  background: #2ea44f;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.input-area button:hover {
+  background: #2c974b;
+}
+
+.input-area button:disabled {
+  background: #94d3a2;
+  cursor: not-allowed;
+}
+
+/* --- your existing beautiful styles remain unchanged --- */
+
+/* ---------- NEW LAYOUT ------------ */
+.main-content {          /* NEW */
+  flex: 1;
+  display: flex;
+  overflow:auto;
+}
+
+/* ---------- CHAT PANE (left) ------ */
+.chat-container {        /* no change except flex‑basis */
+  flex: 1.2;             /* takes ~55% of width */
+}
+
+/* ---------- CODE PANE (right) ----- */
+.code-panel {            /* NEW */
+  flex: 1;
+  background: #1e1e1e;
+  color: #dcdcdc;
+  font-family: Menlo, Consolas, monospace;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.code-toolbar {          /* NEW */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #333;
+  background: #252526;
+  font-size: 0.85rem;
+}
+
+.code-toolbar button {   /* NEW */
+  padding: 0.3rem 0.8rem;
+  border: 1px solid #3a3d41;
+  border-radius: 4px;
+  background: #0e639c;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+.code-toolbar button:hover { background: #1177bb; }
+
+.code-panel pre {        /* NEW */
+  padding: 1rem;
+  margin: 0;
+  white-space: pre-wrap;          /* wrap long lines */
+  word-break: break-word;
+  flex: 1;
+}
+
+/* ---------- optional scrollbar tweak ------ */
+.code-panel::-webkit-scrollbar {
+  width: 8px;
+}
+.code-panel::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 4px;
+}
+
+
+#root{
+  width: 100%;
+ 
+}
