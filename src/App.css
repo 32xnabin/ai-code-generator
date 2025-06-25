@@ -1,3 +1,4 @@
+/* ---------- GLOBAL RESET ---------- */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -10,11 +11,15 @@ body {
   color: #333;
 }
 
+#root {
+  width: 100%;
+}
+
 .app {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width:100%;
+  width: 100%;
   margin: auto;
   height: 100vh;
   border: 1px solid #e1e4e8;
@@ -66,10 +71,12 @@ body {
   background: #2c974b;
 }
 
+/* ---------- MESSAGES & INPUT ----------- */
 .chat-container {
   display: flex;
   flex-direction: column;
-  flex: 1;
+  height: 100%;
+  overflow: hidden;
 }
 
 .messages {
@@ -194,23 +201,48 @@ body {
   cursor: not-allowed;
 }
 
-/* --- your existing beautiful styles remain unchanged --- */
-
-/* ---------- NEW LAYOUT ------------ */
-.main-content {          /* NEW */
+/* ---------- HORIZONTAL RESIZING LAYOUT ---------- */
+.main-content {
   flex: 1;
   display: flex;
-  overflow:auto;
+  overflow: hidden;
 }
 
-/* ---------- CHAT PANE (left) ------ */
-.chat-container {        /* no change except flex‑basis */
-  flex: 1.2;             /* takes ~55% of width */
+.resizable-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-grow: 1;
+  overflow: hidden;
 }
 
-/* ---------- CODE PANE (right) ----- */
-.code-panel {            /* NEW */
+.resizable-panel {
+  overflow: auto;
+  height: 100%;
+}
+
+.left-panel {
+  width: 20%; /* initial width */
+}
+
+.right-panel {
   flex: 1;
+}
+
+/* ---------- RESIZER DIV ---------- */
+.resizer {
+  width: 5px;
+  background: #ccc;
+  cursor: col-resize;
+  transition: background 0.2s;
+}
+
+.resizer:hover {
+  background: #aaa;
+}
+
+/* ---------- CODE PANEL STYLING ---------- */
+.code-panel {
   background: #1e1e1e;
   color: #dcdcdc;
   font-family: Menlo, Consolas, monospace;
@@ -219,7 +251,7 @@ body {
   flex-direction: column;
 }
 
-.code-toolbar {          /* NEW */
+.code-toolbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -229,7 +261,7 @@ body {
   font-size: 0.85rem;
 }
 
-.code-toolbar button {   /* NEW */
+.code-toolbar button {
   padding: 0.3rem 0.8rem;
   border: 1px solid #3a3d41;
   border-radius: 4px;
@@ -238,27 +270,24 @@ body {
   cursor: pointer;
   font-size: 0.8rem;
 }
-.code-toolbar button:hover { background: #1177bb; }
 
-.code-panel pre {        /* NEW */
+.code-toolbar button:hover {
+  background: #1177bb;
+}
+
+.code-panel pre {
   padding: 1rem;
   margin: 0;
-  white-space: pre-wrap;          /* wrap long lines */
+  white-space: pre-wrap;
   word-break: break-word;
   flex: 1;
 }
 
-/* ---------- optional scrollbar tweak ------ */
+/* Optional scrollbar style */
 .code-panel::-webkit-scrollbar {
   width: 8px;
 }
 .code-panel::-webkit-scrollbar-thumb {
   background: #555;
   border-radius: 4px;
-}
-
-
-#root{
-  width: 100%;
- 
 }
