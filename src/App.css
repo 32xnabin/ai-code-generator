@@ -50,11 +50,31 @@ body {
   font-size: 0.9rem;
 }
 
-.settings-row input {
+.settings-row input,
+.settings-row select {
   padding: 0.5rem;
   border: 1px solid #d1d5da;
   border-radius: 6px;
   font-size: 0.9rem;
+  background: white;
+  color: #24292e;
+}
+
+.settings-row select {
+  cursor: pointer;
+  min-width: 150px;
+}
+
+.settings-row select:focus {
+  outline: none;
+  border-color: #0366d6;
+  box-shadow: 0 0 0 3px rgba(3, 102, 214, 0.1);
+}
+
+.settings-row select option {
+  background: white;
+  color: #24292e;
+  padding: 0.5rem;
 }
 
 .settings-row button {
@@ -201,6 +221,125 @@ body {
   cursor: not-allowed;
 }
 
+.stop-button {
+  margin-left: 0.5rem;
+  padding: 0 1.5rem;
+  background: #dc3545 !important;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+}
+
+.stop-button:hover {
+  background: #c82333 !important;
+}
+
+.stop-button:active {
+  background: #bd2130 !important;
+}
+
+/* Edit functionality styles */
+.edit-mode {
+  width: 100%;
+}
+
+.edit-mode textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #2188ff;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  resize: vertical;
+  min-height: 80px;
+  background: white;
+  color: #24292e;
+}
+
+.edit-mode textarea:focus {
+  outline: none;
+  border-color: #0366d6;
+  box-shadow: 0 0 0 3px rgba(3, 102, 214, 0.1);
+}
+
+.edit-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.edit-actions button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background-color 0.2s ease;
+}
+
+.edit-actions button:first-child {
+  background: #2ea44f;
+  color: white;
+}
+
+.edit-actions button:first-child:hover {
+  background: #2c974b;
+}
+
+.edit-actions button:first-child:disabled {
+  background: #94d3a2;
+  cursor: not-allowed;
+}
+
+.edit-actions button:last-child {
+  background: #6c757d;
+  color: white;
+}
+
+.edit-actions button:last-child:hover {
+  background: #5a6268;
+}
+
+.edit-actions button:last-child:disabled {
+  background: #adb5bd;
+  cursor: not-allowed;
+}
+
+.message.user .message-content {
+  position: relative;
+}
+
+.edit-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #d1d5da;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 10;
+}
+
+.message:hover .edit-button {
+  opacity: 1;
+}
+
+.edited-indicator {
+  font-size: 0.75rem;
+  color: #6c757d;
+  font-style: italic;
+  margin-top: 0.25rem;
+  display: block;
+}
+
 /* ---------- HORIZONTAL RESIZING LAYOUT ---------- */
 .main-content {
   flex: 1;
@@ -242,52 +381,574 @@ body {
 }
 
 /* ---------- CODE PANEL STYLING ---------- */
+/* CSS Reset for Code Panel */
+.code-panel,
+.code-panel *,
+.code-panel *::before,
+.code-panel *::after {
+  box-sizing: border-box;
+}
+
 .code-panel {
-  background: #1e1e1e;
-  color: #dcdcdc;
-  font-family: Menlo, Consolas, monospace;
+  background: #1e1e1e !important;
+  color: #d4d4d4 !important;
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace !important;
   overflow: auto;
   display: flex;
   flex-direction: column;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .code-toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem 1rem;
-  border-bottom: 1px solid #333;
-  background: #252526;
-  font-size: 0.85rem;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 0.75rem 1rem !important;
+  border-bottom: 1px solid #3c3c3c !important;
+  background: #2d2d30 !important;
+  font-size: 0.85rem !important;
+  color: #cccccc !important;
+  font-weight: 500 !important;
 }
 
 .code-toolbar button {
-  padding: 0.3rem 0.8rem;
-  border: 1px solid #3a3d41;
-  border-radius: 4px;
-  background: #0e639c;
-  color: #fff;
-  cursor: pointer;
-  font-size: 0.8rem;
+  padding: 0.5rem 1rem !important;
+  border: 1px solid #3a3d41 !important;
+  border-radius: 6px !important;
+  background: #0e639c !important;
+  color: #fff !important;
+  cursor: pointer !important;
+  font-size: 0.8rem !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
 }
 
 .code-toolbar button:hover {
-  background: #1177bb;
+  background: #1177bb !important;
+  border-color: #4a4d51 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.code-toolbar-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.preview-toggle {
+  background: #6c757d !important;
+  border: 1px solid #5a6268 !important;
+}
+
+.preview-toggle:hover {
+  background: #5a6268 !important;
+}
+
+.preview-toggle.active {
+  background: #28a745 !important;
+  border-color: #1e7e34 !important;
+}
+
+.preview-toggle.active:hover {
+  background: #218838 !important;
+}
+
+/* Preview container styles */
+.preview-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #1e1e1e;
+  color: #d4d4d4;
+}
+
+.preview-frame {
+  flex: 1;
+  border-bottom: 1px solid #e1e4e8;
+  position: relative;
+}
+
+.preview-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: white;
+}
+
+.preview-info {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  background: #2d2d30;
+  border-top: 1px solid #3c3c3c;
+}
+
+.preview-tabs {
+  display: flex;
+  border-bottom: 1px solid #3c3c3c;
+  background: #2d2d30;
+}
+
+.preview-tab {
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: #cccccc;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.preview-tab:hover {
+  background: #3c3c3c;
+  color: #ffffff;
+}
+
+.preview-tab.active {
+  color: #ffffff;
+  border-bottom-color: #007acc;
+  background: #1e1e1e;
+}
+
+.content-indicator {
+  color: #28a745;
+  font-size: 0.8rem;
+  margin-left: 4px;
+}
+
+.preview-content {
+  flex: 1;
+  overflow: auto;
+  background: #1e1e1e;
+}
+
+.preview-content pre {
+  margin: 0;
+  padding: 1.5rem;
+  background: #1e1e1e;
+  color: #d4d4d4;
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  overflow: auto;
+  height: 100%;
+}
+
+.preview-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #6a9955;
+  font-style: italic;
+  font-size: 14px;
+  text-align: center;
+  padding: 2rem;
+}
+
+.react-notice {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #2d2d30;
+  border: 1px solid #3c3c3c;
+  border-radius: 6px;
+  color: #d4d4d4;
+  font-style: normal;
+  text-align: left;
+}
+
+.react-notice p {
+  margin: 0.5rem 0;
+  font-size: 13px;
+}
+
+.react-notice p:first-child {
+  color: #ffcc00;
+  font-weight: 500;
 }
 
 .code-panel pre {
-  padding: 1rem;
-  margin: 0;
-  white-space: pre-wrap;
-  word-break: break-word;
-  flex: 1;
+  padding: 1.5rem !important;
+  margin: 0 !important;
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
+  flex: 1 !important;
+  background: #1e1e1e !important;
+  color: #d4d4d4 !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  tab-size: 2 !important;
 }
 
-/* Optional scrollbar style */
-.code-panel::-webkit-scrollbar {
-  width: 8px;
+/* Streaming indicator */
+.code-panel.streaming {
+  position: relative;
 }
-.code-panel::-webkit-scrollbar-thumb {
-  background: #555;
-  border-radius: 4px;
+
+.code-panel.streaming::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #00ff00, #00cc00, #009900);
+  animation: streaming-pulse 2s ease-in-out infinite;
+}
+
+@keyframes streaming-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* Streaming text animation */
+.message.assistant .message-content {
+  position: relative;
+}
+
+.message.assistant .message-content.streaming::after {
+  content: '|';
+  animation: cursor-blink 1s infinite;
+  color: #2188ff;
+  font-weight: bold;
+}
+
+@keyframes cursor-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Code syntax highlighting improvements */
+.code-panel pre code {
+  font-size: 14px;
+  line-height: 1.6;
+  background: transparent !important;
+  color: #d4d4d4 !important;
+  font-family: inherit;
+}
+
+/* VS Code-like syntax highlighting colors with high specificity */
+.code-panel pre code .token.keyword,
+.code-panel .token.keyword {
+  color: #569cd6 !important;
+}
+
+.code-panel pre code .token.string,
+.code-panel .token.string {
+  color: #ce9178 !important;
+}
+
+.code-panel pre code .token.comment,
+.code-panel .token.comment {
+  color: #6a9955 !important;
+  font-style: italic !important;
+}
+
+.code-panel pre code .token.function,
+.code-panel .token.function {
+  color: #dcdcaa !important;
+}
+
+.code-panel pre code .token.number,
+.code-panel .token.number {
+  color: #b5cea8 !important;
+}
+
+.code-panel pre code .token.operator,
+.code-panel .token.operator {
+  color: #d4d4d4 !important;
+}
+
+.code-panel pre code .token.punctuation,
+.code-panel .token.punctuation {
+  color: #d4d4d4 !important;
+}
+
+.code-panel pre code .token.class-name,
+.code-panel .token.class-name {
+  color: #4ec9b0 !important;
+}
+
+.code-panel pre code .token.variable,
+.code-panel .token.variable {
+  color: #9cdcfe !important;
+}
+
+.code-panel pre code .token.property,
+.code-panel .token.property {
+  color: #9cdcfe !important;
+}
+
+.code-panel pre code .token.tag,
+.code-panel .token.tag {
+  color: #569cd6 !important;
+}
+
+.code-panel pre code .token.attr-name,
+.code-panel .token.attr-name {
+  color: #9cdcfe !important;
+}
+
+.code-panel pre code .token.attr-value,
+.code-panel .token.attr-value {
+  color: #ce9178 !important;
+}
+
+/* JSX/React specific syntax highlighting */
+.code-panel pre code .token.tag.language-jsx,
+.code-panel .token.tag.language-jsx {
+  color: #569cd6 !important;
+}
+
+.code-panel pre code .token.attr-name.language-jsx,
+.code-panel .token.attr-name.language-jsx {
+  color: #9cdcfe !important;
+}
+
+.code-panel pre code .token.attr-value.language-jsx,
+.code-panel .token.attr-value.language-jsx {
+  color: #ce9178 !important;
+}
+
+.code-panel pre code .token.keyword.language-jsx,
+.code-panel .token.keyword.language-jsx {
+  color: #569cd6 !important;
+}
+
+/* Ensure preview content has proper styling */
+.preview-content pre code {
+  background: #1e1e1e !important;
+  color: #d4d4d4 !important;
+}
+
+/* Override any Prism dark theme that might affect the main code panel */
+.code-panel:not(.preview-container) pre code {
+  background: transparent !important;
+  color: #d4d4d4 !important;
+}
+
+/* Prevent Prism from applying dark theme to the main code panel */
+.code-panel pre code.language-javascript,
+.code-panel pre code.language-jsx,
+.code-panel pre code.language-markup,
+.code-panel pre code.language-css {
+  background: transparent !important;
+  color: #d4d4d4 !important;
+}
+
+/* Ensure the main code panel maintains its dark theme */
+.code-panel {
+  background: #1e1e1e !important;
+  color: #d4d4d4 !important;
+}
+
+/* Override any Prism.js default styles */
+.code-panel * {
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace !important;
+}
+
+/* Force VS Code theme on all code elements */
+.code-panel pre,
+.code-panel pre code,
+.code-panel code {
+  background: #1e1e1e !important;
+  color: #d4d4d4 !important;
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+}
+
+/* Override Prism.js theme completely */
+.code-panel .token,
+.code-panel .token.comment,
+.code-panel .token.prolog,
+.code-panel .token.doctype,
+.code-panel .token.cdata,
+.code-panel .token.punctuation,
+.code-panel .token.namespace,
+.code-panel .token.property,
+.code-panel .token.tag,
+.code-panel .token.boolean,
+.code-panel .token.number,
+.code-panel .token.constant,
+.code-panel .token.symbol,
+.code-panel .token.deleted,
+.code-panel .token.selector,
+.code-panel .token.attr-name,
+.code-panel .token.string,
+.code-panel .token.char,
+.code-panel .token.builtin,
+.code-panel .token.inserted,
+.code-panel .token.operator,
+.code-panel .token.entity,
+.code-panel .token.url,
+.code-panel .token.atrule,
+.code-panel .token.attr-value,
+.code-panel .token.keyword,
+.code-panel .token.function,
+.code-panel .token.class-name,
+.code-panel .token.regex,
+.code-panel .token.important,
+.code-panel .token.variable,
+.code-panel .token.important,
+.code-panel .token.bold,
+.code-panel .token.italic {
+  background: transparent !important;
+  color: inherit !important;
+  font-family: inherit !important;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  font-style: inherit !important;
+}
+
+/* Streaming code fade-in effect */
+.code-panel pre code.streaming {
+  animation: code-fade-in 0.3s ease-in;
+}
+
+@keyframes code-fade-in {
+  from { opacity: 0.8; }
+  to { opacity: 1; }
+}
+
+/* VS Code-like scrollbar style */
+.code-panel::-webkit-scrollbar,
+.preview-content::-webkit-scrollbar {
+  width: 14px;
+}
+
+.code-panel::-webkit-scrollbar-track,
+.preview-content::-webkit-scrollbar-track {
+  background: #1e1e1e;
+}
+
+.code-panel::-webkit-scrollbar-thumb,
+.preview-content::-webkit-scrollbar-thumb {
+  background: #424242;
+  border: 3px solid #1e1e1e;
+  border-radius: 7px;
+}
+
+.code-panel::-webkit-scrollbar-thumb:hover,
+.preview-content::-webkit-scrollbar-thumb:hover {
+  background: #4f4f4f;
+}
+
+/* ---------- THINK FEATURE STYLES ---------- */
+.think-container {
+  margin: 0.5rem 0;
+  border: 1px solid #e1e4e8;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f8f9fa;
+}
+
+.think-toggle {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: #f1f3f4;
+  border: none;
+  border-bottom: 1px solid #e1e4e8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #586069;
+  transition: background-color 0.2s ease;
+}
+
+.think-toggle:hover {
+  background: #e8eaed;
+}
+
+.think-toggle:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(3, 102, 214, 0.2);
+}
+
+.think-icon {
+  font-size: 1rem;
+  opacity: 0.7;
+}
+
+.think-text {
+  flex: 1;
+  text-align: left;
+  font-weight: 500;
+}
+
+.think-arrow {
+  font-size: 0.8rem;
+  transition: transform 0.2s ease;
+  opacity: 0.7;
+}
+
+.think-arrow.collapsed {
+  transform: rotate(-90deg);
+}
+
+.think-content {
+  padding: 1rem;
+  background: #fafbfc;
+  border-top: 1px solid #e1e4e8;
+}
+
+.think-text-content {
+  color: #586069;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.think-text-content p {
+  margin-bottom: 0.5rem;
+}
+
+.think-text-content p:last-child {
+  margin-bottom: 0;
+}
+
+.streaming-cursor {
+  animation: cursor-blink 1s infinite;
+  color: #586069;
+  font-weight: bold;
+}
+
+@keyframes cursor-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Dark theme adjustments for think feature */
+@media (prefers-color-scheme: dark) {
+  .think-container {
+    border-color: #30363d;
+    background: #21262d;
+  }
+  
+  .think-toggle {
+    background: #30363d;
+    border-bottom-color: #30363d;
+    color: #c9d1d9;
+  }
+  
+  .think-toggle:hover {
+    background: #3c4148;
+  }
+  
+  .think-content {
+    background: #1c2128;
+    border-top-color: #30363d;
+  }
+  
+  .think-text-content {
+    color: #8b949e;
+  }
 }
